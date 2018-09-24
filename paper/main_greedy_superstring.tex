@@ -79,7 +79,7 @@
 \maketitle
 
 \begin{abstract}
-In the Shortest Common Superstring (SCS) problem, one is given a collection of strings, and needs to find a shortest string containing each of them as a substring. SCS admits $2\frac{11}{23}$- and $2\frac{11}{30}$-approximations in polynomial time. While these approximation algorithms and their analyzes are technically involved, the $30$ years old Greedy Conjecture claims that the trivial and efficient Greedy Algorithm gives a $2$-approximation for SCS. The Greedy Algorithm repeatedly merges two strings with the largest intersection into one, until only one string remains.
+In the Shortest Common Superstring (SCS) problem, one is given a collection of strings and needs to find a shortest string containing each of them as a substring. SCS admits $2\frac{11}{23}$- and $2\frac{11}{30}$-approximations in polynomial time. While these approximation algorithms and their analyzes are technically involved, the $30$ years old Greedy Conjecture claims that the trivial and efficient Greedy Algorithm gives a $2$-approximation for SCS. The Greedy Algorithm repeatedly merges two strings with the largest intersection into one, until only one string remains.
 
 We develop a graph-theoretic framework for studying approximation algorithms for SCS. In this framework, we give a (stronger) counterpart to the Greedy Conjecture: We conjecture that the presented in this paper Greedy Hierarchical Algorithm gives a $2$-approximation for SCS. This algorithm is almost as simple as the standard Greedy Algorithm, and we suggest a combinatorial approach for proving this conjecture. We support the conjecture by showing that the Greedy Hierarchical Algorithm gives a $2$-approximation in the case when all input strings have length at most $3$ (which until recently had been the only case where the Greedy Conjecture was proven). We also tested our conjecture on tens of thousands of instances of SCS.
 
@@ -115,7 +115,7 @@ and inapproximability results). While these approximation algorithms use an algo
 
 Blum et al.~\cite{BJLTY1991} prove that the Greedy Algorithm returns a $4$-approximation of SCS, and Kaplan and Shafrir~\cite{KS2005} improve this bound to $3.5$. A slight modification of the Greedy Algorithm gives a $3$-approximation of SCS~\cite{BJLTY1991}, and other greedy algorithms are studied from theoretical~\cite{BJLTY1991,rivals2018superstrings} and practical perspectives~\cite{romero2004experimental, cazaux2018practical}.
 
-It is known that the Greedy Conjecture holds for the case when all input strings have length at most $3$~\cite{TU1988, cazaux20143}, and it was recently shown to hold in the case of string of length $4$~\cite{kulikov2015greedy}. Also, the Greedy Conjecture holds if the Greedy Algorithm happens to merge strings in a particular order~\cite{weinard2006greedy, laube2005conditional}. The Greedy Algorithm gives a $2$-approximation of a different metric called compression~\cite{TU1988}. The compression is defined as the sum of the lengths of all input strings minus the length of a superstring.
+It is known that the Greedy Conjecture holds for the case when all input strings have length at most $3$~\cite{TU1988, cazaux20143}, and it was recently shown to hold in the case of strings of length $4$~\cite{kulikov2015greedy}. Also, the Greedy Conjecture holds if the Greedy Algorithm happens to merge strings in a particular order~\cite{weinard2006greedy, laube2005conditional}. The Greedy Algorithm gives a $2$-approximation of a different metric called compression~\cite{TU1988}. The compression is defined as the sum of the lengths of all input strings minus the length of a superstring.
 
 %following simple 
 %greedy algorithm is 2-approximate: while there are more than two strings 
@@ -162,7 +162,7 @@ solution. For proving 2-approximability, it suffices to show that $|GS| \le |DOS
 One way of showing this is to prove that $GS \subseteq DOS$. 
 The conjecture, at the same time, states that this inclusion holds with equality.
 
-We implemented the Greedy Hierarchical Algorithm~\cite{github}, and tested our conjectures on tens of thousands of datasets (both hand-crafted and generated randomly according to various distributions). We provide a web interface~\cite{webpage} so that anyone could test the conjectures on arbitrary datasets. The webpage also gives detailed visualizations of how the Greedy Hierarchical and Collapsing algorithms work.
+We implemented the Greedy Hierarchical Algorithm~\cite{github} and tested our conjectures on tens of thousands of datasets (both hand-crafted and generated randomly according to various distributions). We provide a web interface~\cite{webpage} so that anyone could test the conjectures on arbitrary datasets. The webpage also gives detailed visualizations of how the Greedy Hierarchical and Collapsing algorithms work.
 
 \section{Definitions}
 \subsection{Shortest Common Superstring Problem}
@@ -442,7 +442,7 @@ A~formal pseudocode of this collapsing procedure is given in Algorithm~\ref{alg:
 % a~superstring of~${\cal S}$ as a~path $D$~in the hierarchical graph.
 \begin{algorithmic}[1]
 \For{level~$l$ in $HG$ in descending order}
-\For{all $v \in V(HG)$ s.t. $|v|=\text{\textsl{level}}$ in lexicographic order:}
+\For{all $v \in V(HG)$ s.t. $|v|=\text{\textsl{l}}$ in lexicographic order:}
 \While{$(\pref(v), v), (v, \suff(v)) \in D$ and collapsing it does not make~$D$ disconnected}
 \State $\text{\sc Collapse}(HG(V,E), D, v)$
 \EndWhile
@@ -477,7 +477,7 @@ Both algorithms continuously change their partial solutions $D$. By $\cld{}$ and
 
 Finally, for CA we define the set $\cldr{s}$, consisting of arcs of $\cld{}$ which are incident to at least one vertex from $ V (s) \setminus \{s \} $ (recall that $\cld{}$ is the set of arcs strictly before the examination of the vertex $s$). For convenience, for GHA we define $\grdr{s}$ in the same way, but note that since GHA always adds arcs adjacent to the vertex it is currently considering, $\grdr{s}=\grd$.\footnote{On the other hand, $\cld$ does not necessarily equal $\cldr{s}$, because $\cld{}$ initially consists of arcs connecting all vertices from $ {\cal S} $ to $\varepsilon$.}
 
-Let us sort all vertices of $V$ in the order in which the two algorithms process them, and let $s$ and $t$ be two consecutive vertices in this order. Now look at the two algorithms processing the vertex $s$. CA and GHA both only change arcs below $s$. Since $\cld{t}$ and $\grd{t}$ only include the arcs incident to vertices from $V(t)$, the following holds for both algorithms:
+Let us sort all vertices of $V$ in the order in which the two algorithms process them, and let $s$ and $t$ be two consecutive vertices in this order. Now, look at the two algorithms processing the vertex $s$. CA and GHA both only change arcs below $s$. Since $\cld{t}$ and $\grd{t}$ only include the arcs incident to vertices from $V(t)$, the following holds for both algorithms:
 \begin{equation}
 \label{eqn:stepcase}
     D(t) = D(s) \sqcup \bigsqcup_{i=1}^{a} (\pref(s), s) \sqcup \bigsqcup_{j=1}^{b} (s, \suff(s))
@@ -507,14 +507,14 @@ We will prove that
 \end{align*}
 For $s=\varepsilon$, this statement implies the Collapsing Superstring Conjecture, as it asserts that the two algorithms end up with the same multiset of arcs. 
 
-We prove this statement by induction on $s$, where $s$ starts with $s_0$ and goes through all the vertices of $HG$ in the same order as CA and GHA. The base case $s=s_0$ of the induction argument follows trivially from the definition: $\cldr{s_0}=\grdr{s_0}=\emptyset$. And the induction step is proven in Lemma~\ref{lem:technical}.
+We prove this statement by induction on $s$, where $s$ starts with $s_0$ and goes through all the vertices of $HG$ in the same order as CA and GHA. The base case $s=s_0$ of the induction argument follows trivially from the definition: $\cldr{s_0}=\grdr{s_0}=\emptyset$. The induction step is proven in Lemma~\ref{lem:technical}.
 \end{proof}
 \input proof1
 \input proof2
 
 
 \section{Further Directions and Open Problems}
-One natural open problem is to prove the Collapsing Superstring Conjecture.
+A straightforward open problem is to prove the Collapsing Superstring Conjecture.
 It would also be interesting to find other applications of the 
 hierarchical graphs. We list two such potential applications below.
 \begin{description}
